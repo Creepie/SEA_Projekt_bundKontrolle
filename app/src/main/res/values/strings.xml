@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">SEA_Projekt</string>
+
+    <string name="menu_home">Bundkontrolle</string>
+    <string name="menu_gallery">Bundinfo</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="home_second">Home Second</string>
+
+    <string name="Ablageplatz">Ablageplatz:</string>
+    <string name="Bunddaten">Bunddaten:</string>
+    <string name="Inspektionsdaten">Inspektionsdaten:</string>
+
+    <string-array name="Ablageplatz">
+        <item>Ablage1</item>
+        <item>Ablage2</item>
+        <item>Ablage3</item>
+    </string-array>
+
+    <string-array name="Fehlercode">
+        <item>test1</item>
+        <item>test2</item>
+        <item>test3</item>
+    </string-array>
+
+    <string-array name="Intensität">
+        <item>test1</item>
+        <item>test2</item>
+        <item>test3</item>
+    </string-array>
+
+    <string-array name="Lage_quer">
+        <item>test1</item>
+        <item>test2</item>
+        <item>test3</item>
+    </string-array>
+
+    <string-array name="Häufigkeit">
+        <item>test1</item>
+        <item>test2</item>
+        <item>test3</item>
+    </string-array>
+</resources>

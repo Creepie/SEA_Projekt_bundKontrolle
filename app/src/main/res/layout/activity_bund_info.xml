@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BundInfo">
+
+    <Button
+        android:id="@+id/bT_bI_inspektionKlappen"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:drawable/arrow_up_float"
+        app:layout_constraintBottom_toBottomOf="@+id/tV_bI_inspektion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tV_bI_inspektion" />
+
+    <TextView
+        android:id="@+id/tV_bI_bundNummer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/eT_bI_bundNummer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/eT_bI_bundNummer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/eT_bI_teilNummer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tV_bI_bundNummer" />
+
+    <EditText
+        android:id="@+id/eT_bI_teilNummer"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/eT_bI_bundNummer"
+        app:layout_constraintEnd_toStartOf="@+id/bT_bI_suchen"
+        app:layout_constraintTop_toTopOf="@+id/eT_bI_bundNummer" />
+
+    <Button
+        android:id="@+id/bT_bI_suchen"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@android:drawable/ic_menu_search"
+        app:layout_constraintBottom_toBottomOf="@+id/eT_bI_teilNummer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eT_bI_teilNummer" />
+
+    <TextView
+        android:id="@+id/tV_bI_teilNummer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/eT_bI_teilNummer"
+        app:layout_constraintStart_toStartOf="@+id/eT_bI_teilNummer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tV_bI_allgemeineInfos"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/bT_bI_allgemeinKlappen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eT_bI_bundNummer" />
+
+    <TextView
+        android:id="@+id/tV_bI_inspektion"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/bT_bI_inspektionKlappen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rV_bI_allgemeineInfos" />
+
+    <Button
+        android:id="@+id/bT_bI_allgemeinKlappen"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:drawable/arrow_up_float"
+        app:layout_constraintBottom_toBottomOf="@+id/tV_bI_allgemeineInfos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tV_bI_allgemeineInfos" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rV_bI_allgemeineInfos"
+        android:layout_width="0dp"
+        android:layout_height="168dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tV_bI_allgemeineInfos" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rV_bI_inspektion"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bT_bI_inspektionKlappen" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
