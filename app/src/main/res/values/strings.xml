@@ -18,26 +18,36 @@
     </string-array>
 
     <string-array name="Fehlercode">
-        <item>test1</item>
-        <item>test2</item>
-        <item>test3</item>
+        <item>VZC: Schlackenspritzer</item>
+        <item>KRU: Raue Kante</item>
+        <item>KBK: Kranbeschädigung Kran</item>
     </string-array>
 
     <string-array name="Intensität">
-        <item>test1</item>
-        <item>test2</item>
-        <item>test3</item>
+        <item>L:  Leicht</item>
+        <item>LM: Leicht/Mittel</item>
+        <item>M:  Mittel</item>
+        <item>MS: Mittel/Stark</item>
+        <item>S:  Stark</item>
     </string-array>
 
     <string-array name="Lage_quer">
-        <item>test1</item>
-        <item>test2</item>
-        <item>test3</item>
+        <item>RL: Randlinks</item>
+        <item>ML: mitte/links</item>
+        <item>M: mitte</item>
+        <item>MR: mitte/rechts</item>
+        <item>RR: Randrechts</item>
+        <item>GB: ganze Breite</item>
+        <item>RAN: </item>
     </string-array>
 
     <string-array name="Häufigkeit">
-        <item>test1</item>
-        <item>test2</item>
-        <item>test3</item>
+        <item>E: </item>
+        <item>V:</item>
+        <item>TW:</item>
+        <item>DG:</item>
+        <item>B:</item>
+        <item>MB:</item>
+        <item>P:</item>
     </string-array>
 </resources>

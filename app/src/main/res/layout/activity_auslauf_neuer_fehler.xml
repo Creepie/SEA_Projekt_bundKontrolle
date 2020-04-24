@@ -7,11 +7,11 @@
     tools:context=".AuslaufNeuerFehler">
 
     <TextView
-        android:id="@+id/tV_nF_bundnummer"
+        android:id="@+id/tV_nF_txtBundnummer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Bundnummer: "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,10 +21,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Fehler: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tV_nF_bundnummer" />
+        app:layout_constraintTop_toBottomOf="@+id/tV_nF_txtBundnummer" />
 
     <Spinner
         android:id="@+id/sP_nF_fehler"
@@ -160,4 +160,15 @@
         android:inputType="numberDecimal"
         app:layout_constraintStart_toEndOf="@+id/tV_nF_wert"
         app:layout_constraintTop_toBottomOf="@+id/sP_nF_intensitaet" />
+
+    <TextView
+        android:id="@+id/tV_nF_bundnummer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Hier steht mal eine Bundnummer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tV_nF_txtBundnummer"
+        app:layout_constraintTop_toTopOf="@+id/tV_nF_txtBundnummer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

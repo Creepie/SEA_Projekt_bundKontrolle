@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
+
+
+
     }
 
     override fun onClick(v: View?) {
