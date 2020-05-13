@@ -1,11 +1,12 @@
 package com.example.sea_projekt
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import com.example.sea_projekt.Fehler as Fehler
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -15,6 +16,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
+
+        var daten = FehlerListe()
+
+
+        var a = daten.fehler[0]
+        println(a.sperrKz)
+
+
+
 
 
 
@@ -35,3 +45,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 }
+
+class FehlerListe {
+    val fehler = mutableListOf<Fehler>()
+}
+
+

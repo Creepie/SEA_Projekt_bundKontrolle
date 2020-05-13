@@ -51,9 +51,28 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
             }
             R.id.bT_nF_speichern -> {
                 Log.i("LOG", "bT_neuer_fehler_speichern was clicked")
+
+                //check filter > if all fields are filled
+                var filter = true
+
+                //if filter is ok > create new object
+                if (filter){
+                    var test = Fehler("S", "VZC", "M", "L", "DG", 100F, 200F, false)
+                    //add in Array list
+
+
+                } else {
+                    //create toast > "bitte eingaben kontrollieren"
+                }
+
+
+
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
         }
     }
 }
+
+class Fehler(val schluessel: String, val sperrKz: String, val lageQuer: String, val intensitaet: String,
+             val haufeigkeit: String, val meterPosVon: Float, val meterPosBis: Float, val toleriert: Boolean)
