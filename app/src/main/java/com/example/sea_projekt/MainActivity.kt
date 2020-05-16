@@ -1,7 +1,10 @@
 package com.example.sea_projekt
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +37,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
         rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(fehlerlist)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == 999 && resultCode == Activity.RESULT_OK){
+            val test5 = data?.getParcelableExtra<testfehler>("neuerFehler")
+            if (test5 != null) {
+                fehlerlist.add(test5)
+            }
+        }
     }
 
     override fun onClick(v: View?) {
@@ -42,7 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.bT_bK_neuerFehler -> {
                 Log.i("LOG", "bT_neuerFehler was clicked")
                 val intent = Intent(this, AuslaufNeuerFehler::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, 999)
             }
             R.id.iV_bK_bundInfo -> {
                 Log.i("LOG", "iV_bundInfo was clicked")
@@ -51,7 +64,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
+
+
 }
+
+
 
 
 //for RecyclerView Inspektionsdaten
@@ -93,7 +110,10 @@ class MyRecyclerAdapter(val list: MutableList<testfehler>) : RecyclerView.Adapte
         }
     }
 
+
 }
+
+
 
 
 

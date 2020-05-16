@@ -1,8 +1,11 @@
 package com.example.sea_projekt
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -52,21 +55,10 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
             R.id.bT_nF_speichern -> {
                 Log.i("LOG", "bT_neuer_fehler_speichern was clicked")
 
-                //check filter > if all fields are filled
-                //var filter = true
-
-                //if filter is ok > create new object
-                //if (filter){
-                //    var test = Fehler("S", "VZC", "M", "L", "DG", 100F, 200F, false)
-                    //add in Array list
-
-
-                //} else {
-                    //create toast > "bitte eingaben kontrollieren"
-               // }
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                val i = intent
+                i.putExtra("neuerFehler", testfehler("S", "VZC"))
+                setResult(Activity.RESULT_OK, i)
+                finish()
             }
         }
     }
@@ -75,4 +67,30 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
 class Fehler(val schluessel: String, val sperrKz: String, val lageQuer: String, val intensitaet: String,
              val haufeigkeit: String, val meterPosVon: Float, val meterPosBis: Float, val toleriert: Boolean)
 
-data class testfehler(val schluessel: String, val sperrKz: String)
+data class testfehler(val schluessel: String?, val sperrKz: String?) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(schluessel)
+        parcel.writeString(sperrKz)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<testfehler> {
+        override fun createFromParcel(parcel: Parcel): testfehler {
+            return testfehler(parcel)
+        }
+
+        override fun newArray(size: Int): Array<testfehler?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+}
