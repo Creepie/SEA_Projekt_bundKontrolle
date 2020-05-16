@@ -17,17 +17,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
 
-        var daten = FehlerListe()
-
-
-        var a = daten.fehler[0]
-        println(a.sperrKz)
-
-
-
-
-
-
     }
 
     override fun onClick(v: View?) {

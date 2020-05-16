@@ -53,19 +53,17 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
                 Log.i("LOG", "bT_neuer_fehler_speichern was clicked")
 
                 //check filter > if all fields are filled
-                var filter = true
+                //var filter = true
 
                 //if filter is ok > create new object
-                if (filter){
-                    var test = Fehler("S", "VZC", "M", "L", "DG", 100F, 200F, false)
+                //if (filter){
+                //    var test = Fehler("S", "VZC", "M", "L", "DG", 100F, 200F, false)
                     //add in Array list
 
 
-                } else {
+                //} else {
                     //create toast > "bitte eingaben kontrollieren"
-                }
-
-
+               // }
 
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
