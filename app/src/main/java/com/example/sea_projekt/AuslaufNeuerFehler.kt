@@ -74,3 +74,5 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
 
 class Fehler(val schluessel: String, val sperrKz: String, val lageQuer: String, val intensitaet: String,
              val haufeigkeit: String, val meterPosVon: Float, val meterPosBis: Float, val toleriert: Boolean)
+
+data class testfehler(val schluessel: String, val sperrKz: String)
