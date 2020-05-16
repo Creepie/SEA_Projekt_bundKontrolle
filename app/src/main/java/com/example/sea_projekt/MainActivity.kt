@@ -3,8 +3,6 @@ package com.example.sea_projekt
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_bund_info.*
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.sea_projekt.Fehler as Fehler
 
@@ -22,7 +19,7 @@ import com.example.sea_projekt.Fehler as Fehler
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    val fehlerlist = mutableListOf<testfehler>()
+    val fehlerlist = mutableListOf<Fehler>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +27,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
-
-        for(i in 0 ..5 ){
-            fehlerlist.add(testfehler("nummer $i,", "$i"))
-        }
 
         rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
         rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(fehlerlist)
@@ -43,7 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(requestCode == 999 && resultCode == Activity.RESULT_OK){
-            val test5 = data?.getParcelableExtra<testfehler>("neuerFehler")
+            val test5 = data?.getParcelableExtra<Fehler>("neuerFehler")
             if (test5 != null) {
                 fehlerlist.add(test5)
                 rV_bK_inspektionsdaten.adapter?.notifyItemInserted(fehlerlist.size);
@@ -75,7 +68,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //for RecyclerView Inspektionsdaten
 class MyViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
-    val tV_Header = view.findViewById<TextView>(R.id.tV_inspitem_fehlercode)
+    val tV_sperrKz = view.findViewById<TextView>(R.id.tV_inspitem_SperrKz)
+    val tV_schluessel = view.findViewById<TextView>(R.id.tV_inspitem_schluessel)
+    val tV_meterPosVon = view.findViewById<TextView>(R.id.tV_inspitem_meterPosVon)
+    val tV_meterPosBis = view.findViewById<TextView>(R.id.tV_inspitem_meterPosBis)
 
     init {
 
@@ -83,7 +79,7 @@ class MyViewHolder(view: View) : RecyclerView.ViewHolder(view){
 }
 
 //for RecyclerView Inspektionsdaten
-class MyRecyclerAdapter(val list: MutableList<testfehler>) : RecyclerView.Adapter<MyViewHolder>() {
+class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -102,7 +98,10 @@ class MyRecyclerAdapter(val list: MutableList<testfehler>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val item = list[position]
-        holder.tV_Header.text = item.schluessel.toString()
+        holder.tV_sperrKz.text = item.sperrKz.toString()
+        holder.tV_schluessel.text = item.schluessel.toString()
+        holder.tV_meterPosVon.text = item.meterPosVon.toString()
+        holder.tV_meterPosBis.text = item.meterPosBis.toString()
 
         holder.itemView.setOnClickListener{
             Toast.makeText(
