@@ -64,7 +64,9 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
     }
 }
 
-class Fehler(val schluessel: String?, val sperrKz: String?, val lageQuer: String?, val intensitaet: String?,
+
+//neuer Fehler implementiert Parcelable interface für Object übergabe von Neuer Fehler to Main
+data class Fehler(val schluessel: String?, val sperrKz: String?, val lageQuer: String?, val intensitaet: String?,
              val haufeigkeit: String?, val meterPosVon: Float, val meterPosBis: Float, val toleriert: Boolean) : Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString(),

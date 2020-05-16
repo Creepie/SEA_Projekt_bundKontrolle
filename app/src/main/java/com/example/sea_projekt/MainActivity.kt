@@ -19,6 +19,7 @@ import com.example.sea_projekt.Fehler as Fehler
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    //ArrayList gefüllt mit Fehler Objekten
     val fehlerlist = mutableListOf<Fehler>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +29,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
 
+        //set recycler on LinearLayout
         rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
+        //set recycler adapter to Class MyRecyclerAdapter
         rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(fehlerlist)
     }
 
+    //check the Result of the activity (neuer Fehler)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -58,11 +62,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
-
 }
-
-
 
 
 //for RecyclerView Inspektionsdaten
