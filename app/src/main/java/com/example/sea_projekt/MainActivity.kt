@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val test5 = data?.getParcelableExtra<testfehler>("neuerFehler")
             if (test5 != null) {
                 fehlerlist.add(test5)
+                rV_bK_inspektionsdaten.adapter?.notifyItemInserted(fehlerlist.size);
             }
         }
     }
