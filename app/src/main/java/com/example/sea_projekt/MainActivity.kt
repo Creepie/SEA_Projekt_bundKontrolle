@@ -11,7 +11,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_auslauf_neuer_fehler.*
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.sea_projekt.Fehler as Fehler
 
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 id: Long
             ) {
                 Log.i("LOG", "sP_bK_ablageplatz was clicked and changed $position")
-                rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(rinnenList[position].mutableList)
+                rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(rinnenList[position].fehlerList)
             }
 
         }
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //set recycler on LinearLayout
         rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
         //set recycler adapter to Class MyRecyclerAdapter
-        rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(rinnenList[0].mutableList)
+        //rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(rinnenList[0].fehlerList)
     }
 
     //check the Result of the activity (neuer Fehler)
@@ -73,9 +72,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if(requestCode == 999 && resultCode == Activity.RESULT_OK){
             val fehler = data?.getParcelableExtra<Fehler>("neuerFehler")
             if (fehler != null) {
-                val test = sP_bK_ablageplatz.selectedItemPosition
-                rinnenList[test].mutableList.add(fehler)
-                rV_bK_inspektionsdaten.adapter?.notifyItemInserted(rinnenList[0].mutableList.size);
+                val spinnerPos = sP_bK_ablageplatz.selectedItemPosition
+                rinnenList[spinnerPos].fehlerList.add(fehler)
+                rV_bK_inspektionsdaten.adapter?.notifyItemInserted(rinnenList[0].fehlerList.size);
             }
         }
     }
@@ -144,7 +143,7 @@ class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<My
 
 }
 
-data class Rinne(val rinne: String, val mutableList: MutableList<Fehler>)
+data class Rinne(val rinne: String, val fehlerList: MutableList<Fehler>)
 
 
 
