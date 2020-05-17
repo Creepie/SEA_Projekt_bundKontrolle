@@ -7,11 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_auslauf_neuer_fehler.*
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.sea_projekt.Fehler as Fehler
 
@@ -19,8 +19,8 @@ import com.example.sea_projekt.Fehler as Fehler
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    //ArrayList gefüllt mit Fehler Objekten
-    val fehlerlist = mutableListOf<Fehler>()
+    //Rinnen Liste
+    val rinnenList = mutableListOf<Rinne>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +29,41 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
 
+        //Ablageplatz Spinner befüllen
+        val ablageplatz = resources.getStringArray(R.array.Ablageplatz)
+        if (sP_bK_ablageplatz != null){
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ablageplatz)
+            sP_bK_ablageplatz.adapter = adapter
+        }
+
+        //Ablageplatz Spinner änderungen checken
+        sP_bK_ablageplatz.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                Log.i("LOG", "sP_bK_ablageplatz was clicked and nothing changed")
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                Log.i("LOG", "sP_bK_ablageplatz was clicked and changed $position")
+                rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(rinnenList[position].mutableList)
+            }
+
+        }
+
+        //leere Rinnen in RinnenListe einfügen
+        for (i in 0..5){
+            rinnenList.add(i, Rinne("Rinne$i", mutableListOf()))
+        }
+
+
         //set recycler on LinearLayout
         rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
         //set recycler adapter to Class MyRecyclerAdapter
-        rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(fehlerlist)
+        rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(rinnenList[0].mutableList)
     }
 
     //check the Result of the activity (neuer Fehler)
@@ -42,8 +73,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if(requestCode == 999 && resultCode == Activity.RESULT_OK){
             val fehler = data?.getParcelableExtra<Fehler>("neuerFehler")
             if (fehler != null) {
-                fehlerlist.add(fehler)
-                rV_bK_inspektionsdaten.adapter?.notifyItemInserted(fehlerlist.size);
+                val test = sP_bK_ablageplatz.selectedItemPosition
+                rinnenList[test].mutableList.add(fehler)
+                rV_bK_inspektionsdaten.adapter?.notifyItemInserted(rinnenList[0].mutableList.size);
             }
         }
     }
@@ -110,8 +142,11 @@ class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<My
         }
     }
 
-
 }
+
+data class Rinne(val rinne: String, val mutableList: MutableList<Fehler>)
+
+
 
 
 
