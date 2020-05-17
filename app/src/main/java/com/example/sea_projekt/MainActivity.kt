@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(requestCode == 999 && resultCode == Activity.RESULT_OK){
-            val test5 = data?.getParcelableExtra<Fehler>("neuerFehler")
-            if (test5 != null) {
-                fehlerlist.add(test5)
+            val fehler = data?.getParcelableExtra<Fehler>("neuerFehler")
+            if (fehler != null) {
+                fehlerlist.add(fehler)
                 rV_bK_inspektionsdaten.adapter?.notifyItemInserted(fehlerlist.size);
             }
         }
