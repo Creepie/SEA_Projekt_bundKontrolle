@@ -100,8 +100,7 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
         when(v?.id){
             R.id.bT_nF_zurueck -> {
                 Log.i("LOG", "bT_neuer_fehler_zurück was clicked")
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                finish()
             }
             R.id.bT_nF_speichern -> {
                 Log.i("LOG", "bT_neuer_fehler_speichern was clicked")

@@ -61,8 +61,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         //set recycler on LinearLayout
         rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
-        //set recycler adapter to Class MyRecyclerAdapter
-        //rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(rinnenList[0].fehlerList)
     }
 
     //check the Result of the activity (neuer Fehler)
@@ -144,6 +142,8 @@ class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<My
 }
 
 data class Rinne(val rinne: String, val fehlerList: MutableList<Fehler>)
+
+
 
 
 
