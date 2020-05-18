@@ -17,6 +17,22 @@
         <item>Ablage3</item>
     </string-array>
 
+
+    <string-array name="error_code">
+        <item>Fehlercode auswählen</item>
+        <item>VZC</item>
+        <item>KRU</item>
+        <item>KBK</item>
+    </string-array>
+
+    <string-array name="error_code_description">
+        <item> </item>
+        <item>Schlackenspritzer</item>
+        <item>Raue Kante</item>
+        <item>Kranbeschädigung</item>
+    </string-array>
+
+
     <string-array name="Fehlercode">
         <item>VZC: Schlackenspritzer</item>
         <item>KRU: Raue Kante</item>
