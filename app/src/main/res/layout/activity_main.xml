@@ -6,6 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#03A9F4"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sP_bK_ablageplatz" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#03A9F4"
+        app:layout_constraintBottom_toTopOf="@+id/rV_bK_inspektionsdaten"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
     <TextView
         android:id="@+id/tV_bK_ablageplatz"
         android:layout_width="0dp"
@@ -37,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_weight="1"
         android:text="@string/Bunddaten"
         android:textSize="18sp"
@@ -46,13 +70,14 @@
 
     <ImageView
         android:id="@+id/iV_bK_bundInfo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:background="@android:drawable/ic_dialog_info"
         android:contentDescription="TODO"
         android:src="@android:drawable/ic_dialog_info"
+        app:layout_constraintBottom_toBottomOf="@+id/tV_bK_bunddaten"
         app:layout_constraintStart_toEndOf="@+id/tV_bK_bunddaten"
         app:layout_constraintTop_toTopOf="@+id/tV_bK_bunddaten" />
 
@@ -71,22 +96,23 @@
 
     <Button
         android:id="@+id/bT_bK_neuerFehler"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
         android:background="@android:drawable/ic_menu_add"
         app:layout_constraintBottom_toBottomOf="@+id/tV_bK_inspektionsdaten"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tV_bK_inspektionsdaten" />
 
     <Button
         android:id="@+id/bT_bK_absenden"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
         android:background="@android:drawable/ic_menu_send"
+        app:layout_constraintBottom_toTopOf="@+id/view2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -139,7 +165,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="nächste Arbeitsstufe:   5961"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tV_bK_bunddaten" />
