@@ -65,8 +65,6 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
 
     }
 
-
-
    override fun onClick(v: View?) {
         when(v?.id){
             R.id.bT_nF_zurueck -> {
