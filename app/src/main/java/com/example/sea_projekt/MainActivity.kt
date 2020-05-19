@@ -21,10 +21,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     //Rinnen Liste
     val rinnenList = createRinnenList()
 
-    fun createRinnenList():List<Rinne>{
-        val rinnenList = mutableListOf<Rinne>()
+    fun createRinnenList():List<Bundplatz>{
+        val rinnenList = mutableListOf<Bundplatz>()
         for (i in 0..5){
-            rinnenList.add(i, Rinne("Rinne$i",null, mutableListOf()))
+            rinnenList.add(i, Bundplatz("Rinne$i",null, mutableListOf()))
         }
         return rinnenList
     }
@@ -145,13 +145,46 @@ class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<My
 }
 
 
-data class Rinne(val platzName: String, val platz: Platz?, val fehlerList: MutableList<Fehler>)
+data class Bundplatz(val platzName: String,                     //Name der Bundablage
+                     val platz: Platz?,                         //Objekt der Bundablage
+                     val fehlerList: MutableList<Fehler>)       //Test fehlerListe (wird danach entfernt)
 
-data class Platz(val id: Int, val rinne: Int, val barcode: String, val bezeichnung: String, val bund: Bund)
+//Platz Object > Daten pro Ablageplatz
+data class Platz(val id: Int,                                   //
+                 val rinne: Int,                                //
+                 val barcode: String,                           //Barcode der Bundablage falls vorhanden
+                 val bezeichnung: String,                       //Bezeichnung der Bundablage
+                 val bund: Bund)                                //Objekt des Bundes auf Ablage
 
-data class Bund(val bundId: Int, val menr: String, val untr: String, val bundKontrolliert: Boolean, val bundVerbucht: Boolean, val bundGesperrt: Boolean, val folgeAst: String, val baender: MutableList<Band>)
+//Bund Object > Daten pro Bund > Teil von Platz Objekt
+data class Bund(val bundId: Int,                                //Bund ID
+                val menr: String,                               //
+                val untr: String,                               //
+                val bundKontrolliert: Boolean,                  //Bund kontrolliert Ja/Nein
+                val bundVerbucht: Boolean,                      //Bund verbucht Ja/Nein
+                val bundGesperrt: Boolean,                      //Bund gesperrt Ja/Nein
+                val folgeAst: String,                           //folge Arbeitsstufe (für Bundinfos)
+                val baender: MutableList<Band>,                 //Liste an Bändern (Teilung eines Bundes möglich)
+                val bundParameter: MutableList<Parameter>)      //Liste an Parameter (Teilung eines Bundes möglich)
 
-data class Band(val bandId: Int, val bandauslID: Int, val menr: String, val untr: String, val inspektionsdatensatz: MutableList<Fehler> )
+//Band Object > Daten pro Band > Teilung pro Bund möglich > Teil von Bund Objekt
+data class Band(val bandId: Int,                                //Band ID
+                val bandauslID: Int,                            //
+                val menr: String,                               //
+                val untr: String,                               //
+                val inspektionsdatensatz: MutableList<Fehler>,  //Liste an Fehlern auf Band (derzeit auf Bundplatz zu Testzwecken)
+                val evParameter: MutableList<Parameter>,        //Liste an Parametern von dominierten Auftrag
+                val istParameter: MutableList<Parameter>)       //Liste an Parametern
+
+//Parameter Objekt > Teilung pro Bund möglich daher verschiedene Parameter möglich > Teil von Bund Objekt
+data class Parameter(val kurztext: String,                      //
+                     val langtext: String,                      //
+                     val sollIstKennzeichen: String,            //
+                     val ermittlungsKennzeichen: String,        //
+                     val beareitbar: Boolean,                   //
+                     val wert: String,                          //
+                     val typ: String,                           //
+                     val reihenfolge: Int)                      //
 
 
 
