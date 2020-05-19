@@ -40,11 +40,19 @@
     </string-array>
 
     <string-array name="Intensität">
-        <item>L:  Leicht</item>
-        <item>LM: Leicht/Mittel</item>
-        <item>M:  Mittel</item>
-        <item>MS: Mittel/Stark</item>
-        <item>S:  Stark</item>
+    <item>L</item>
+    <item>LM</item>
+    <item>M</item>
+    <item>MS</item>
+    <item>S</item>
+</string-array>
+
+    <string-array name="Intensität_description">
+        <item>Leicht</item>
+        <item>Leicht/Mittel</item>
+        <item>Mittel</item>
+        <item>Mittel/Stark</item>
+        <item>Stark</item>
     </string-array>
 
     <string-array name="Lage_quer">
@@ -58,10 +66,10 @@
     </string-array>
 
     <string-array name="Häufigkeit">
-        <item>E: </item>
-        <item>V:</item>
-        <item>TW:</item>
-        <item>DG:</item>
+        <item>E: Einzelfehler</item>
+        <item>V: Vereinzelt</item>
+        <item>TW: Teilweise</item>
+        <item>DG: Durchgehend</item>
         <item>B:</item>
         <item>MB:</item>
         <item>P:</item>

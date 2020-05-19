@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_auslauf_neuer_fehler.*
 class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
 
     lateinit var error_code_list: ArrayList<String>
+    lateinit var intensitaet_list: ArrayList<String>
     lateinit var error_code: Array<String>
     lateinit var staerke: Array<String>
     lateinit var haeufigkeit: Array<String>
@@ -36,7 +37,7 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
 
         val error_code_description = resources.getStringArray(R.array.error_code_description)
         for (i in error_code.indices) {
-            error_code_list.add(error_code[i] + ": " + error_code_description[i])
+            error_code_list.add(String.format("%-4s",error_code[i]) + ": " + error_code_description[i])
         }
 
         if (sP_nF_fehler != null) {
@@ -44,17 +45,30 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
             sP_nF_fehler.adapter = adapter
 
         }
+
+
+        intensitaet_list  = ArrayList()
         staerke = resources.getStringArray(R.array.Intensität)
+        val intensitaet_description = resources.getStringArray(R.array.Intensität_description)
+
+        for (i in staerke.indices) {
+          intensitaet_list.add(String.format("|%-5s|",staerke[i])  + String.format("|%-30s|",intensitaet_description[i]))
+        }
         if (sP_nF_intensitaet != null){
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, staerke)
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, intensitaet_list)
             sP_nF_intensitaet.adapter = adapter
         }
+
+
 
         haeufigkeit = resources.getStringArray(R.array.Häufigkeit)
         if (sP_nF_haeufigkeit != null){
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, haeufigkeit)
             sP_nF_haeufigkeit.adapter = adapter
         }
+
+
+
 
         lageQuer = resources.getStringArray(R.array.Lage_quer)
         if (sP_nF_lageQuer != null){
@@ -75,7 +89,16 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
                 Log.i("LOG", "bT_neuer_fehler_speichern was clicked")
 
                 val i = intent
-                i.putExtra("neuerFehler", Fehler(error_code[sP_nF_fehler.selectedItemPosition], "S", "GB", "MS", "DG", 1510F, 1540F, true ))
+                i.putExtra(
+                    "neuerFehler", Fehler(
+                        error_code[sP_nF_fehler.selectedItemPosition],
+                        "S", lageQuer[sP_nF_lageQuer.selectedItemPosition],
+                        staerke[sP_nF_intensitaet.selectedItemPosition],
+                        haeufigkeit[sP_nF_haeufigkeit.selectedItemPosition],
+                        1510F,
+                        1540F,
+                        true
+                    ))
                 setResult(Activity.RESULT_OK, i)
                 finish()
             }
