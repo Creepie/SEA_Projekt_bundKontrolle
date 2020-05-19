@@ -145,6 +145,7 @@ class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<My
 }
 
 
+//test Klasse (ev nacher einfach ArrayList mit Platz Objekten!?)
 data class Bundplatz(val platzName: String,                     //Name der Bundablage
                      val platz: Platz?,                         //Objekt der Bundablage
                      val fehlerList: MutableList<Fehler>)       //Test fehlerListe (wird danach entfernt)
