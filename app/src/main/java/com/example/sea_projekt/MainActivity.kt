@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         //leere Rinnen in RinnenListe einfügen
         for (i in 0..5){
-            rinnenList.add(i, Rinne("Rinne$i", mutableListOf()))
+            rinnenList.add(i, Rinne("Rinne$i",null, mutableListOf()))
         }
 
 
@@ -141,7 +141,14 @@ class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<My
 
 }
 
-data class Rinne(val rinne: String, val fehlerList: MutableList<Fehler>)
+data class Rinne(val platzName: String, val platz: Platz?, val fehlerList: MutableList<Fehler>)
+
+data class Platz(val id: Int, val rinne: Int, val barcode: String, val bezeichnung: String, val bund: Bund)
+
+data class Bund(val bundId: Int, val menr: String, val untr: String, val bundKontrolliert: Boolean, val bundVerbucht: Boolean, val bundGesperrt: Boolean, val folgeAst: String, val baender: MutableList<Band>)
+
+data class Band(val bandId: Int, val bandauslID: Int, val menr: String, val untr: String, val inspektionsdatensatz: MutableList<Fehler> )
+
 
 
 
