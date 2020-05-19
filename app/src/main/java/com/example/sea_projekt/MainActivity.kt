@@ -19,7 +19,16 @@ import com.example.sea_projekt.Fehler as Fehler
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     //Rinnen Liste
-    val rinnenList = mutableListOf<Rinne>()
+    val rinnenList = createRinnenList()
+
+    fun createRinnenList():List<Rinne>{
+        val rinnenList = mutableListOf<Rinne>()
+        for (i in 0..5){
+            rinnenList.add(i, Rinne("Rinne$i",null, mutableListOf()))
+        }
+        return rinnenList
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,12 +61,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
         }
-
-        //leere Rinnen in RinnenListe einfügen
-        for (i in 0..5){
-            rinnenList.add(i, Rinne("Rinne$i",null, mutableListOf()))
-        }
-
 
         //set recycler on LinearLayout
         rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
@@ -140,6 +143,7 @@ class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<My
     }
 
 }
+
 
 data class Rinne(val platzName: String, val platz: Platz?, val fehlerList: MutableList<Fehler>)
 
