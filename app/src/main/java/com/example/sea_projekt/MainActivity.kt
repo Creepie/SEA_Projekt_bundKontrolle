@@ -19,20 +19,23 @@ import com.example.sea_projekt.Fehler as Fehler
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     //Rinnen Liste
-    val rinnenList = createRinnenList()
+    lateinit var bundablageList: MutableList<Bundplatz>
 
-    fun createRinnenList():List<Bundplatz>{
-        val rinnenList = mutableListOf<Bundplatz>()
-        for (i in 0..5){
-            rinnenList.add(i, Bundplatz("Rinne$i",null, mutableListOf()))
+    fun createBundablageList():List<Bundplatz>{
+        val plaetze = resources.getStringArray(R.array.Ablageplatz)
+        val size = plaetze.size
+        val bundablageList = mutableListOf<Bundplatz>()
+        for (i in 0 until size){
+            bundablageList.add(i, Bundplatz("Rinne$i",null, mutableListOf()))
         }
-        return rinnenList
+        return bundablageList
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        bundablageList = createBundablageList() as MutableList<Bundplatz>
 
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 id: Long
             ) {
                 Log.i("LOG", "sP_bK_ablageplatz was clicked and changed $position")
-                rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(rinnenList[position].fehlerList)
+                rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(bundablageList[position].fehlerList)
             }
 
         }
@@ -74,8 +77,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val fehler = data?.getParcelableExtra<Fehler>("neuerFehler")
             if (fehler != null) {
                 val spinnerPos = sP_bK_ablageplatz.selectedItemPosition
-                rinnenList[spinnerPos].fehlerList.add(fehler)
-                rV_bK_inspektionsdaten.adapter?.notifyItemInserted(rinnenList[0].fehlerList.size);
+                bundablageList[spinnerPos].fehlerList.add(fehler)
+                rV_bK_inspektionsdaten.adapter?.notifyItemInserted(bundablageList[0].fehlerList.size);
             }
         }
     }
