@@ -35,11 +35,11 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
 
         var typeface: Typeface? = ResourcesCompat.getFont(this.applicationContext, R.font.monoitalic)
 
+        //errorCode Spinner
         error_code_list  = ArrayList()
         error_code = resources.getStringArray(R.array.error_code)
-
-
         val error_code_description = resources.getStringArray(R.array.error_code_description)
+
         for (i in error_code.indices) {
             error_code_list.add(String.format("%-4s",error_code[i]) + ": " + error_code_description[i])
         }
@@ -56,7 +56,7 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
         val intensitaet_description = resources.getStringArray(R.array.Intensität_description)
 
         for (i in staerke.indices) {
-            intensitaet_list.add("${String.format("%-4s",staerke[i])}: ${intensitaet_description[i]}")
+            intensitaet_list.add("${String.format("%-3s",staerke[i])}: ${intensitaet_description[i]}")
         }
         if (sP_nF_intensitaet != null){
             //Adapter for Intensitaet
@@ -65,27 +65,18 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
                 android.R.layout.simple_spinner_dropdown_item,
                 intensitaet_list
             ){
-                override fun getDropDownView(
-                    position: Int,
-                    convertView: View?,
-                    parent: ViewGroup
+                override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup
                 ): View {
-                    val view:TextView = super.getDropDownView(
-                        position,
-                        convertView,
-                        parent
-                    ) as TextView
-
-                    // set item text style and font
-                    view.setTypeface(typeface, Typeface.BOLD_ITALIC)
+                    val view:TextView = super.getDropDownView(position, convertView, parent) as TextView
+                    // set item font and text style
+                    view.setTypeface(typeface, Typeface.NORMAL)
                     return view
                 }
             }
             sP_nF_intensitaet.adapter = adapter
         }
 
-
-
+        //hauefigkeit Spinner
         haeufigkeit = resources.getStringArray(R.array.Häufigkeit)
         if (sP_nF_haeufigkeit != null){
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, haeufigkeit)
@@ -94,7 +85,7 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
 
 
 
-
+        //lageQuer Spinner
         lageQuer = resources.getStringArray(R.array.Lage_quer)
         if (sP_nF_lageQuer != null){
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, lageQuer)
