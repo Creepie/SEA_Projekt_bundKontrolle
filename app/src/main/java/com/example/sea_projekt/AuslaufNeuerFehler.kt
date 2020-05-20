@@ -1,16 +1,20 @@
 package com.example.sea_projekt
 
 import android.app.Activity
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import kotlinx.android.synthetic.main.activity_auslauf_neuer_fehler.*
+
 
 class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
 
@@ -26,10 +30,10 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auslauf_neuer_fehler)
 
-
-
         bT_nF_zurueck.setOnClickListener(this)
         bT_nF_speichern.setOnClickListener(this)
+
+        var typeface: Typeface? = ResourcesCompat.getFont(this.applicationContext, R.font.monoitalic)
 
         error_code_list  = ArrayList()
         error_code = resources.getStringArray(R.array.error_code)
@@ -46,16 +50,37 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
 
         }
 
-
+        //intensitaet  Spinner
         intensitaet_list  = ArrayList()
         staerke = resources.getStringArray(R.array.Intensität)
         val intensitaet_description = resources.getStringArray(R.array.Intensität_description)
 
         for (i in staerke.indices) {
-          intensitaet_list.add(String.format("|%-5s|",staerke[i])  + String.format("|%-30s|",intensitaet_description[i]))
+            intensitaet_list.add("${String.format("%-4s",staerke[i])}: ${intensitaet_description[i]}")
         }
         if (sP_nF_intensitaet != null){
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, intensitaet_list)
+            //Adapter for Intensitaet
+            val adapter:ArrayAdapter<String> = object: ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                intensitaet_list
+            ){
+                override fun getDropDownView(
+                    position: Int,
+                    convertView: View?,
+                    parent: ViewGroup
+                ): View {
+                    val view:TextView = super.getDropDownView(
+                        position,
+                        convertView,
+                        parent
+                    ) as TextView
+
+                    // set item text style and font
+                    view.setTypeface(typeface, Typeface.BOLD_ITALIC)
+                    return view
+                }
+            }
             sP_nF_intensitaet.adapter = adapter
         }
 
@@ -152,3 +177,4 @@ data class Fehler(val schluessel: String?, val sperrKz: String?, val lageQuer: S
     }
 
 }
+
