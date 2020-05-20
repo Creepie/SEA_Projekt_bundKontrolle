@@ -12,9 +12,14 @@
     <string name="Inspektionsdaten">Inspektionsdaten:</string>
 
     <string-array name="Ablageplatz">
-        <item>Ablage1: 85512345</item>
-        <item>Ablage2: 21345123</item>
-        <item>Ablage3: 12325123</item>
+        <item>Bundablage 1.1: 85512345</item>
+        <item>Bundablage 1.2: 21345123</item>
+        <item>Bundablage 1.3: 12325123</item>
+        <item>Bundablage 1.4: </item>
+        <item>Bundablage 2.1: </item>
+        <item>Bundablage 2.2: </item>
+        <item>Bundablage 2.3: </item>
+        <item>Bundablage 2.4: </item>
     </string-array>
 
 
