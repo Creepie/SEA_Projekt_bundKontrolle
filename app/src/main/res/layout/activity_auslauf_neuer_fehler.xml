@@ -35,7 +35,9 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nF_fehler" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_nF_fehler"
+        android:typeface = "monospace"
+        />
 
     <TextView
         android:id="@+id/tV_nF_intensitaet"
@@ -45,7 +47,8 @@
         android:layout_marginTop="8dp"
         android:text="Intensität: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sP_nF_fehler" />
+        app:layout_constraintTop_toBottomOf="@+id/sP_nF_fehler"
+        />
 
     <Spinner
         android:id="@+id/sP_nF_intensitaet"
@@ -56,7 +59,9 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tV_nF_intensitaet" />
+        app:layout_constraintTop_toBottomOf="@+id/tV_nF_intensitaet"
+        android:typeface = "monospace"
+        />
 
     <TextView
         android:id="@+id/tV_nF_wert"
@@ -87,7 +92,9 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nF_haeufigkeit" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_nF_haeufigkeit"
+        android:typeface = "monospace"
+        />
 
     <TextView
         android:id="@+id/tV_nF_lageQuer"
