@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
 
+
+
         //Ablageplatz Spinner befüllen
         val ablageplatz = resources.getStringArray(R.array.Ablageplatz)
         if (sP_bK_ablageplatz != null){
@@ -61,6 +63,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             sP_bK_ablageplatz.adapter = adapter
         }
+
+
 
         //Ablageplatz Spinner änderungen checken
         sP_bK_ablageplatz.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -83,6 +87,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //set recycler on LinearLayout
         rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
     }
+
+
 
     //check the Result of the activity (neuer Fehler)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
