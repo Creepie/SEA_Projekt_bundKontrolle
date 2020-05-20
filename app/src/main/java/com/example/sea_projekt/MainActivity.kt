@@ -2,6 +2,7 @@ package com.example.sea_projekt
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var typeface: Typeface? = ResourcesCompat.getFont(this.applicationContext, R.font.monoitalic)
         bundablageList = createBundablageList() as MutableList<Bundplatz>
 
         bT_bK_neuerFehler.setOnClickListener(this)
@@ -43,7 +46,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //Ablageplatz Spinner befüllen
         val ablageplatz = resources.getStringArray(R.array.Ablageplatz)
         if (sP_bK_ablageplatz != null){
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ablageplatz)
+            val adapter:ArrayAdapter<String> = object: ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                ablageplatz
+            ){
+                override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup
+                ): View {
+                    val view:TextView = super.getDropDownView(position, convertView, parent) as TextView
+                    // set item font and text style
+                    view.setTypeface(typeface, Typeface.NORMAL)
+                    return view
+                }
+            }
             sP_bK_ablageplatz.adapter = adapter
         }
 
