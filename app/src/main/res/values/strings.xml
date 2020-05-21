@@ -45,6 +45,7 @@
     </string-array>
 
     <string-array name="Intensität">
+        <item>Intensität auswählen</item>
     <item>L</item>
     <item>LM</item>
     <item>M</item>
@@ -53,6 +54,7 @@
 </string-array>
 
     <string-array name="Intensität_description">
+        <item></item>
         <item>Leicht</item>
         <item>Leicht/Mittel</item>
         <item>Mittel</item>
@@ -61,22 +63,44 @@
     </string-array>
 
     <string-array name="Lage_quer">
-        <item>RL: Randlinks</item>
-        <item>ML: mitte/links</item>
-        <item>M: mitte</item>
-        <item>MR: mitte/rechts</item>
-        <item>RR: Randrechts</item>
-        <item>GB: ganze Breite</item>
-        <item>RAN: </item>
+        <item>Lage auswählen</item>
+        <item>RL</item>
+        <item>ML</item>
+        <item>M</item>
+        <item>MR</item>
+        <item>RR</item>
+        <item>GB</item>
+        <item>RAN </item>
     </string-array>
 
+    <string-array name="Lage_quer_description">
+        <item></item>
+        <item>Randlinks</item>
+        <item>mitte/links</item>
+        <item>mitte</item>
+        <item>mitte/rechts</item>
+        <item>Randrechts</item>
+        <item>ganze Breite</item>
+        <item>Beschreibung fehlt</item>
+    </string-array>
     <string-array name="Häufigkeit">
-        <item>E: Einzelfehler</item>
-        <item>V: Vereinzelt</item>
-        <item>TW: Teilweise</item>
-        <item>DG: Durchgehend</item>
-        <item>B:</item>
-        <item>MB:</item>
-        <item>P:</item>
+        <item>Häufigkeit auswählen</item>
+        <item>E</item>
+        <item>V</item>
+        <item>TW</item>
+        <item>DG</item>
+        <item>B</item>
+        <item>MB</item>
+        <item>P</item>
+    </string-array>
+    <string-array name="Häufigkeit_description">
+        <item></item>
+        <item>Einzelfehler</item>
+        <item>Vereinzelt</item>
+        <item>Teilweise</item>
+        <item>Durchgehend</item>
+        <item>Beschreibung fehlt</item>
+        <item>Beschreibung fehlt</item>
+        <item>Beschreibung fehlt</item>
     </string-array>
 </resources>
