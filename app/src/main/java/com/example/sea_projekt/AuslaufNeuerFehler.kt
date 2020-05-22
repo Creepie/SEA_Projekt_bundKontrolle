@@ -36,7 +36,7 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
         bT_nF_speichern.setOnClickListener(this)
         sW_nF_sperre.setOnClickListener(this)
 
-        var typeface: Typeface? = ResourcesCompat.getFont(this.applicationContext, R.font.monoitalic)
+        var typeface: Typeface? = ResourcesCompat.getFont(this.applicationContext, R.font.roboto)
 
         //errorCode Spinner
         error_code_list  = ArrayList()
