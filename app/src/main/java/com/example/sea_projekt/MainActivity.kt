@@ -126,8 +126,8 @@ class MyViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
     val tV_sperrKz = view.findViewById<TextView>(R.id.tV_inspitem_SperrKz)
     val tV_schluessel = view.findViewById<TextView>(R.id.tV_inspitem_schluessel)
-    val tV_meterPosVon = view.findViewById<TextView>(R.id.tV_inspitem_meterPosVon)
-    val tV_meterPosBis = view.findViewById<TextView>(R.id.tV_inspitem_meterPosBis)
+    val tV_identiziaet = view.findViewById<TextView>(R.id.tV_idensitaet)
+    val tV_lageQuer = view.findViewById<TextView>(R.id.tV_lageQuer)
 
     init {
 
@@ -156,8 +156,8 @@ class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<My
         val item = list[position]
         holder.tV_sperrKz.text = item.sperrKz.toString()
         holder.tV_schluessel.text = item.schluessel.toString()
-        holder.tV_meterPosVon.text = item.meterPosVon.toString()
-        holder.tV_meterPosBis.text = item.meterPosBis.toString()
+        holder.tV_identiziaet.text = item.intensitaet.toString()
+        holder.tV_lageQuer.text = item.lageQuer.toString()
 
         holder.itemView.setOnClickListener{
             Toast.makeText(
