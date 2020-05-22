@@ -128,6 +128,7 @@ class MyViewHolder(view: View) : RecyclerView.ViewHolder(view){
     val tV_schluessel = view.findViewById<TextView>(R.id.tV_inspitem_schluessel)
     val tV_identiziaet = view.findViewById<TextView>(R.id.tV_idensitaet)
     val tV_lageQuer = view.findViewById<TextView>(R.id.tV_lageQuer)
+    val tV_hauefigkeit = view.findViewById<TextView>(R.id.tV_inspitem_hauefigkeit)
 
     init {
 
@@ -158,6 +159,7 @@ class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<My
         holder.tV_schluessel.text = item.schluessel.toString()
         holder.tV_identiziaet.text = item.intensitaet.toString()
         holder.tV_lageQuer.text = item.lageQuer.toString()
+        holder.tV_hauefigkeit.text = item.haufeigkeit.toString()
 
         holder.itemView.setOnClickListener{
             Toast.makeText(
