@@ -32,6 +32,7 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auslauf_neuer_fehler)
 
+        Sperrkennzeichen = "N"
         bT_nF_zurueck.setOnClickListener(this)
         bT_nF_speichern.setOnClickListener(this)
         sW_nF_sperre.setOnClickListener(this)
