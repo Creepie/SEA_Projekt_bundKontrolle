@@ -25,19 +25,6 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    //Rinnen Liste
-    lateinit var bundablageList: MutableList<Bundplatz>
-
-    fun createBundablageList():List<Bundplatz>{
-        val plaetze = resources.getStringArray(R.array.Ablageplatz)
-        val size = plaetze.size
-        val bundablageList = mutableListOf<Bundplatz>()
-        for (i in 0 until size){
-            bundablageList.add(i, Bundplatz("Rinne$i",null, mutableListOf()))
-        }
-        return bundablageList
-    }
-
 
     fun getJsonDataFromAsset(context: Context, fileName: String): String? {
         val jsonString: String
@@ -57,7 +44,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         //get Font
         var typeface: Typeface? = ResourcesCompat.getFont(this.applicationContext, R.font.monoitalic)
-        bundablageList = createBundablageList() as MutableList<Bundplatz>
+
 
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
@@ -70,8 +57,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val gson = Gson()
         val listAblageType = object : TypeToken<List<Platz>>() {}.type
 
-        var bundablagen: List<Platz> = gson.fromJson(jsonFileString, listAblageType)
+        var bundablagen: ArrayList<Platz> = gson.fromJson(jsonFileString, listAblageType)
         bundablagen.forEachIndexed { idx, person -> Log.i("data", "> Item $idx:\n$person") }
+        //add list to Singleton
+        BundpaltzSingleton.bundablageList = bundablagen
 
 
         //Ablageplatz Spinner befüllen
@@ -108,11 +97,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 id: Long
             ) {
                 Log.i("LOG", "sP_bK_ablageplatz was clicked and changed $position")
-                rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(bundablageList[position].fehlerList)
+                BundpaltzSingleton.spinnerPos = position
+                if (BundpaltzSingleton.bundablageList[position].bund != null){
+                    if (BundpaltzSingleton.bundablageList[position].bund.baender[0].inspektionsdatensatz == null){
+                        BundpaltzSingleton.bundablageList[position].bund.baender[0].inspektionsdatensatz = arrayListOf()
+                    }
+                    rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(BundpaltzSingleton.bundablageList[position].bund.baender[0].inspektionsdatensatz)
+                } else {
+                    val mutableList = mutableListOf<Fehler>()
+                    rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(mutableList)
+
+                }
+
             }
 
         }
-
         //set recycler on LinearLayout
         rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
     }
@@ -127,8 +126,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val fehler = data?.getParcelableExtra<Fehler>("neuerFehler")
             if (fehler != null) {
                 val spinnerPos = sP_bK_ablageplatz.selectedItemPosition
-                bundablageList[spinnerPos].fehlerList.add(fehler)
-                rV_bK_inspektionsdaten.adapter?.notifyItemInserted(bundablageList[0].fehlerList.size);
+                //create new arrayList and add new fehler
+                if (BundpaltzSingleton.bundablageList[spinnerPos].bund != null && BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz == null){
+                    BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz = arrayListOf()
+                    BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz.add(fehler)
+                    rV_bK_inspektionsdaten.adapter?.notifyItemInserted(BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz.size)
+                } else if(BundpaltzSingleton.bundablageList[spinnerPos].bund != null){
+                    BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz.add(fehler)
+                    rV_bK_inspektionsdaten.adapter?.notifyItemInserted(BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz.size)
+                }
             }
         }
     }
@@ -136,14 +142,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.bT_bK_neuerFehler -> {
-                Log.i("LOG", "bT_neuerFehler was clicked")
-                val intent = Intent(this, AuslaufNeuerFehler::class.java)
-                startActivityForResult(intent, 999)
+                if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null){
+                    Log.i("LOG", "bT_neuerFehler was clicked on a item with bund object != null")
+                    val intent = Intent(this, AuslaufNeuerFehler::class.java)
+                    startActivityForResult(intent, 999)
+                } else {
+                    Log.i("LOG", "bT_neuerFehler was clicked on a item with bund object == null")
+                }
+
             }
             R.id.iV_bK_bundInfo -> {
-                Log.i("LOG", "iV_bundInfo was clicked")
-                val intent = Intent(this, BundInfo::class.java)
-                startActivity(intent)
+                if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null){
+                    Log.i("LOG", "iV_bundInfo was clicked with bund object != null")
+                    val intent = Intent(this, BundInfo::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.i("LOG", "iV_bundInfo was clicked with bund object == null")
+                }
+
             }
         }
     }
@@ -228,7 +244,7 @@ data class Band(val bandId: Int,                                //Band ID
                 val bandauslID: Int,                            //
                 val menr: String,                               //
                 val untr: String,                               //
-                val inspektionsdatensatz: MutableList<Fehler>,  //Liste an Fehlern auf Band (derzeit auf Bundplatz zu Testzwecken)
+                var inspektionsdatensatz: MutableList<Fehler>,  //Liste an Fehlern auf Band (derzeit auf Bundplatz zu Testzwecken)
                 val evParameter: MutableList<Parameter>,        //Liste an Parametern von dominierten Auftrag
                 val istParameter: MutableList<Parameter>)       //Liste an Parametern
 
