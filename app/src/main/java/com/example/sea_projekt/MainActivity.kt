@@ -23,23 +23,9 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
-import java.lang.ref.Reference
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-
-
-    fun getJsonDataFromAsset(context: Context, fileName: String): String? {
-        val jsonString: String
-        try {
-            jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
-        } catch (ioException: IOException) {
-            ioException.printStackTrace()
-            return null
-        }
-        return jsonString
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,34 +34,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //get Font
         var typeface: Typeface? = ResourcesCompat.getFont(this.applicationContext, R.font.monoitalic)
 
-
+        //set on clickListeners
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
         bT_bK_absenden.setOnClickListener(this)
 
+        //set recycler on LinearLayout
+        rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
 
         //Load json and map it to object list
         val jsonFileString = getJsonDataFromAsset(applicationContext, "auslauf_plaetze.json")
         Log.i("data", jsonFileString)
 
-        val gson = Gson()
-        val listAblageType = object : TypeToken<List<Platz>>() {}.type
+        //get list from json and add it to BundplatzSingelton
+        jsonToObject(jsonFileString)
 
-        var bundablagen: ArrayList<Platz> = gson.fromJson(jsonFileString, listAblageType)
-        bundablagen.forEachIndexed { idx, person -> Log.i("data", "> Item $idx:\n$person") }
-        //add list to Singleton
-        BundpaltzSingleton.bundablageList = bundablagen
-
-
-
+        //get ArrayList for Ablageplatz Spinner
         var ablageplatz  = ArrayList<String>()
-        var error_code = resources.getStringArray(R.array.Ablageplatz)
-
-        for (i in error_code.indices) {
+        var idAblageplatz = resources.getStringArray(R.array.Ablageplatz)
+        for (i in idAblageplatz.indices) {
             if (BundpaltzSingleton.bundablageList[i].bund != null){
-                ablageplatz.add("${String.format("%-4s",error_code[i])} : ${BundpaltzSingleton.bundablageList[i].bund.baender[0].menr}")
+                ablageplatz.add("${String.format("%-4s",idAblageplatz[i])} : ${BundpaltzSingleton.bundablageList[i].bund.baender[0].menr}")
             } else {
-                ablageplatz.add("${String.format("%-4s",error_code[i])}")
+                ablageplatz.add("${String.format("%-4s",idAblageplatz[i])}")
             }
         }
 
@@ -111,6 +92,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 id: Long
             ) {
                 Log.i("LOG", "sP_bK_ablageplatz was clicked and changed $position")
+                //set color of send button
+                var colorValue = 0
+                if (BundpaltzSingleton.bundablageList[position].bund != null && BundpaltzSingleton.bundablageList[position].bund.bundKontrolliert){
+                        colorValue = ContextCompat.getColor(this@MainActivity, R.color.colorAccent)
+                        bT_bK_absenden.backgroundTintList = ColorStateList.valueOf(colorValue)
+                } else{
+                    bT_bK_absenden.backgroundTintList = null
+                }
+
+
                 BundpaltzSingleton.spinnerPos = position
                 if (BundpaltzSingleton.bundablageList[position].bund != null){
                     if (BundpaltzSingleton.bundablageList[position].bund.baender[0].inspektionsdatensatz == null){
@@ -120,17 +111,32 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 } else {
                     val mutableList = mutableListOf<Fehler>()
                     rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(mutableList)
-
                 }
-
             }
-
         }
-        //set recycler on LinearLayout
-        rV_bK_inspektionsdaten.layoutManager = LinearLayoutManager(this)
     }
 
+    //Json
+    fun getJsonDataFromAsset(context: Context, fileName: String): String? {
+        val jsonString: String
+        try {
+            jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
+        } catch (ioException: IOException) {
+            ioException.printStackTrace()
+            return null
+        }
+        return jsonString
+    }
 
+    fun jsonToObject(jsonFileString: String?) {
+        val gson = Gson()
+        val listAblageType = object : TypeToken<List<Platz>>() {}.type
+
+        var bundablagen: ArrayList<Platz> = gson.fromJson(jsonFileString, listAblageType)
+        bundablagen.forEachIndexed { idx, person -> Log.i("data", "> Item $idx:\n$person") }
+        //add list to Singleton
+        BundpaltzSingleton.bundablageList = bundablagen
+    }
 
     //check the Result of the activity (neuer Fehler)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -141,11 +147,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (fehler != null) {
                 val spinnerPos = sP_bK_ablageplatz.selectedItemPosition
                 //create new arrayList and add new fehler
-                if (BundpaltzSingleton.bundablageList[spinnerPos].bund != null && BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz == null){
-                    BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz = arrayListOf()
-                    BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz.add(fehler)
-                    rV_bK_inspektionsdaten.adapter?.notifyItemInserted(BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz.size)
-                } else if(BundpaltzSingleton.bundablageList[spinnerPos].bund != null){
+                if (BundpaltzSingleton.bundablageList[spinnerPos].bund != null){
+                    if (BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz == null){
+                        BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz = arrayListOf()
+                    }
                     BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz.add(fehler)
                     rV_bK_inspektionsdaten.adapter?.notifyItemInserted(BundpaltzSingleton.bundablageList[spinnerPos].bund.baender[0].inspektionsdatensatz.size)
                 }
@@ -157,13 +162,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when(v?.id){
             R.id.bT_bK_neuerFehler -> {
                 if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null){
+                    var bundnummer = BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund.menr
                     Log.i("LOG", "bT_neuerFehler was clicked on a item with bund object != null")
                     val intent = Intent(this, AuslaufNeuerFehler::class.java)
+                    intent.putExtra("Bundnummer", bundnummer)
                     startActivityForResult(intent, 999)
                 } else {
                     Log.i("LOG", "bT_neuerFehler was clicked on a item with bund object == null")
                 }
-
             }
             R.id.iV_bK_bundInfo -> {
                 if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null){
@@ -173,13 +179,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 } else {
                     Log.i("LOG", "iV_bundInfo was clicked with bund object == null")
                 }
-
             }
             R.id.bT_bK_absenden -> {
                 if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null){
                     Log.i("LOG", "iV_bundInfo was clicked with bund object != null")
-                    val colorValue = ContextCompat.getColor(this, R.color.colorPrimary)
-                    bT_bK_absenden.setBackgroundTintList(ColorStateList.valueOf(colorValue));
+                    BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund.bundKontrolliert = true
+                    val colorValue = ContextCompat.getColor(this, R.color.colorAccent)
+                    bT_bK_absenden.backgroundTintList = ColorStateList.valueOf(colorValue);
                 } else {
                     Log.i("LOG", "iV_bundInfo was clicked with bund object == null")
                 }
@@ -235,14 +241,9 @@ class MyRecyclerAdapter(val list: MutableList<Fehler>) : RecyclerView.Adapter<My
             ).show()
         }
     }
-
 }
 
 
-//test Klasse (ev nacher einfach ArrayList mit Platz Objekten!?)
-data class Bundplatz(val platzName: String,                     //Name der Bundablage
-                     val platz: Platz?,                         //Objekt der Bundablage
-                     val fehlerList: MutableList<Fehler>)       //Test fehlerListe (wird danach entfernt)
 
 //Platz Object > Daten pro Ablageplatz
 data class Platz(val id: Int,                                   //
@@ -255,7 +256,7 @@ data class Platz(val id: Int,                                   //
 data class Bund(val bundId: Int,                                //Bund ID
                 val menr: String,                               //
                 val untr: String,                               //
-                val bundKontrolliert: Boolean,                  //Bund kontrolliert Ja/Nein
+                var bundKontrolliert: Boolean,                  //Bund kontrolliert Ja/Nein
                 val bundVerbucht: Boolean,                      //Bund verbucht Ja/Nein
                 val bundGesperrt: Boolean,                      //Bund gesperrt Ja/Nein
                 val folgeAst: String,                           //folge Arbeitsstufe (für Bundinfos)

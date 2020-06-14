@@ -32,6 +32,11 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auslauf_neuer_fehler)
 
+        //get bundnummer from intent and set it to the top TextView
+        var intent = intent
+        var bundnummer = intent.getStringExtra("Bundnummer")
+        tV_nF_bundnummer.text = bundnummer.toString()
+
         Sperrkennzeichen = "N"
         bT_nF_zurueck.setOnClickListener(this)
         bT_nF_speichern.setOnClickListener(this)
@@ -89,10 +94,6 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
         if (sP_nF_lageQuer != null){
             sP_nF_lageQuer.adapter = getSpinnerAdapter(lageQuer_list,typeface)
         }
-
-
-
-
     }
 
 
@@ -177,10 +178,6 @@ class AuslaufNeuerFehler : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-
-
-
-
     }
 }
 
