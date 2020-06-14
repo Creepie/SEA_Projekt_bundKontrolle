@@ -3,6 +3,7 @@ package com.example.sea_projekt
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
+import java.lang.ref.Reference
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -48,6 +51,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
+        bT_bK_absenden.setOnClickListener(this)
 
 
         //Load json and map it to object list
@@ -63,8 +67,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         BundpaltzSingleton.bundablageList = bundablagen
 
 
-        //Ablageplatz Spinner befüllen
-        val ablageplatz = resources.getStringArray(R.array.Ablageplatz)
+
+        var ablageplatz  = ArrayList<String>()
+        var error_code = resources.getStringArray(R.array.Ablageplatz)
+
+        for (i in error_code.indices) {
+            if (BundpaltzSingleton.bundablageList[i].bund != null){
+                ablageplatz.add("${String.format("%-4s",error_code[i])} : ${BundpaltzSingleton.bundablageList[i].bund.baender[0].menr}")
+            } else {
+                ablageplatz.add("${String.format("%-4s",error_code[i])}")
+            }
+        }
+
         if (sP_bK_ablageplatz != null){
             val adapter:ArrayAdapter<String> = object: ArrayAdapter<String>(
                 this,
@@ -160,6 +174,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     Log.i("LOG", "iV_bundInfo was clicked with bund object == null")
                 }
 
+            }
+            R.id.bT_bK_absenden -> {
+                if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null){
+                    Log.i("LOG", "iV_bundInfo was clicked with bund object != null")
+                    val colorValue = ContextCompat.getColor(this, R.color.colorPrimary)
+                    bT_bK_absenden.setBackgroundTintList(ColorStateList.valueOf(colorValue));
+                } else {
+                    Log.i("LOG", "iV_bundInfo was clicked with bund object == null")
+                }
             }
         }
     }
