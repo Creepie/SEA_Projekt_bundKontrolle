@@ -1,6 +1,7 @@
 package com.example.sea_projekt
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -8,14 +9,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
-import com.example.sea_projekt.Fehler as Fehler
-
+import java.io.IOException
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -33,16 +38,40 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         return bundablageList
     }
 
+
+    fun getJsonDataFromAsset(context: Context, fileName: String): String? {
+        val jsonString: String
+        try {
+            jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
+        } catch (ioException: IOException) {
+            ioException.printStackTrace()
+            return null
+        }
+        return jsonString
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //get Font
         var typeface: Typeface? = ResourcesCompat.getFont(this.applicationContext, R.font.monoitalic)
         bundablageList = createBundablageList() as MutableList<Bundplatz>
 
         bT_bK_neuerFehler.setOnClickListener(this)
         iV_bK_bundInfo.setOnClickListener(this)
 
+
+        //Load json and map it to object list
+        val jsonFileString = getJsonDataFromAsset(applicationContext, "auslauf_plaetze.json")
+        Log.i("data", jsonFileString)
+
+        val gson = Gson()
+        val listAblageType = object : TypeToken<List<Platz>>() {}.type
+
+        var bundablagen: List<Platz> = gson.fromJson(jsonFileString, listAblageType)
+        bundablagen.forEachIndexed { idx, person -> Log.i("data", "> Item $idx:\n$person") }
 
 
         //Ablageplatz Spinner befüllen

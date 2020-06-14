@@ -1,0 +1,147 @@
+
+[{
+        "id": 1,
+        "rinne": 1,
+        "barcode": "Rinne1/Sockel1",
+        "bezeichnung": "BA 1.1",
+        "bund": null
+    }, {
+        "id": 2,
+        "rinne": 1,
+        "barcode": "Rinne1/Sockel2",
+        "bezeichnung": "BA 1.2",
+        "bund": null
+    }, {
+        "id": 3,
+        "rinne": 1,
+        "barcode": "Rinne1/Sockel3",
+        "bezeichnung": "BA 1.3",
+        "bund": {
+            "bundID": 4131320,
+            "menr": "463891",
+            "untr": "",
+            "bundKontrolliert": true,
+            "bundVerbucht": false,
+            "bundGesperrt": false,
+            "folgeAst": "5922 BABE",
+            "baender": [{
+                    "bandID": 4130775,
+                    "bandauslID": 4131321,
+                    "menr": "463891",
+                    "untr": "",
+                    "inspektionsdatensatz": null,
+                    "evParameter": [{
+                            "kurztext": "al_info",
+                            "langtext": "",
+                            "sollIstKennzeichen": null,
+                            "ermittlungsKennzeichen": null,
+                            "bearbeitbar": false,
+                            "wert": "G",
+                            "type": "F",
+                            "reihenfolge": 0
+                        }, {
+                            "kurztext": "SORTMST",
+                            "langtext": "",
+                            "sollIstKennzeichen": null,
+                            "ermittlungsKennzeichen": null,
+                            "bearbeitbar": false,
+                            "wert": "SM5",
+                            "type": "S",
+                            "reihenfolge": 0
+                        }
+                    ],
+                    "istParameter": null
+                }
+            ],
+            "bundParameter": [{
+                    "kurztext": "SIGNOLAG",
+                    "langtext": "",
+                    "sollIstKennzeichen": null,
+                    "ermittlungsKennzeichen": null,
+                    "bearbeitbar": false,
+                    "wert": "",
+                    "type": "S",
+                    "reihenfolge": 0
+                }
+            ]
+        }
+    }, {
+        "id": 4,
+        "rinne": 1,
+        "barcode": "Rinne1/Sockel4",
+        "bezeichnung": "BA 1.4",
+        "bund": {
+            "bundID": 4131313,
+            "menr": "463224",
+            "untr": "2",
+            "bundKontrolliert": true,
+            "bundVerbucht": true,
+            "bundGesperrt": false,
+            "folgeAst": "5961 VERP",
+            "baender": [{
+                    "bandID": 4130771,
+                    "bandauslID": 4131314,
+                    "menr": "463224",
+                    "untr": "2",
+                    "inspektionsdatensatz": null,
+                    "evParameter": [{
+                            "kurztext": "al_info",
+                            "langtext": "",
+                            "sollIstKennzeichen": null,
+                            "ermittlungsKennzeichen": null,
+                            "bearbeitbar": false,
+                            "wert": "",
+                            "type": "F",
+                            "reihenfolge": 0
+                        }, {
+                            "kurztext": "SORTMST",
+                            "langtext": "",
+                            "sollIstKennzeichen": null,
+                            "ermittlungsKennzeichen": null,
+                            "bearbeitbar": false,
+                            "wert": "SM4",
+                            "type": "S",
+                            "reihenfolge": 0
+                        }
+                    ],
+                    "istParameter": null
+                }
+            ],
+            "bundParameter": [{
+                    "kurztext": "SIGNOLAG",
+                    "langtext": "",
+                    "sollIstKennzeichen": null,
+                    "ermittlungsKennzeichen": null,
+                    "bearbeitbar": false,
+                    "wert": "",
+                    "type": "S",
+                    "reihenfolge": 0
+                }
+            ]
+        }
+    }, {
+        "id": 1,
+        "rinne": 2,
+        "barcode": "Rinne2/Sockel1",
+        "bezeichnung": "BA 2.1",
+        "bund": null
+    }, {
+        "id": 2,
+        "rinne": 2,
+        "barcode": "Rinne2/Sockel2",
+        "bezeichnung": "BA 2.2",
+        "bund": null
+    }, {
+        "id": 3,
+        "rinne": 2,
+        "barcode": "Rinne2/Sockel3",
+        "bezeichnung": "BA 2.3",
+        "bund": null
+    }, {
+        "id": 4,
+        "rinne": 2,
+        "barcode": "Rinne2/Sockel4",
+        "bezeichnung": "BA 2.4",
+        "bund": null
+    }
+]
