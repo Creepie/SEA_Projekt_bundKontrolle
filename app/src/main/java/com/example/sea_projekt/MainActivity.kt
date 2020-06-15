@@ -95,10 +95,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 //set color of send button
                 var colorValue = 0
                 if (BundpaltzSingleton.bundablageList[position].bund != null && BundpaltzSingleton.bundablageList[position].bund.bundKontrolliert){
-                        colorValue = ContextCompat.getColor(this@MainActivity, R.color.green)
-                        bT_bK_absenden.backgroundTintList = ColorStateList.valueOf(colorValue)
+                        bT_bK_absenden.setBackgroundResource(R.drawable.correct)
                 } else{
-                    bT_bK_absenden.backgroundTintList = null
+                    bT_bK_absenden.setBackgroundResource(R.drawable.plane)
                 }
 
 
@@ -184,8 +183,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null){
                     Log.i("LOG", "iV_bundInfo was clicked with bund object != null")
                     BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund.bundKontrolliert = true
-                    val colorValue = ContextCompat.getColor(this, R.color.green)
-                    bT_bK_absenden.backgroundTintList = ColorStateList.valueOf(colorValue);
+                    bT_bK_absenden.setBackgroundResource(R.drawable.correct)
                 } else {
                     Log.i("LOG", "iV_bundInfo was clicked with bund object == null")
                 }
