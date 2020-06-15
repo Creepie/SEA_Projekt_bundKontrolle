@@ -38,12 +38,6 @@
     </string-array>
 
 
-    <string-array name="Fehlercode">
-        <item>VZC: Schlackenspritzer</item>
-        <item>KRU: Raue Kante</item>
-        <item>KBK: Kranbeschädigung Kran</item>
-    </string-array>
-
     <string-array name="Intensität">
         <item>Intensität auswählen</item>
     <item>L</item>

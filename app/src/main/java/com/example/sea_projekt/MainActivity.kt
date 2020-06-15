@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -30,6 +31,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //set bundInfo to invisible
+        tV_bK_bindeBand.visibility = View.INVISIBLE
+        tV_bK_signo.visibility = View.INVISIBLE
+        tV_bK_kantenschutz.visibility = View.INVISIBLE
+        tV_bK_nAst.visibility = View.INVISIBLE
+        cB_bK_Signo.visibility = View.INVISIBLE
+        cB_bK_matte.visibility = View.INVISIBLE
+
 
         //get Font
         var typeface: Typeface? = ResourcesCompat.getFont(this.applicationContext, R.font.monoitalic)
@@ -93,14 +103,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             ) {
                 Log.i("LOG", "sP_bK_ablageplatz was clicked and changed $position")
                 //set color of send button
-                var colorValue = 0
+                if (BundpaltzSingleton.bundablageList[position].bund != null){
+                    tV_bK_bindeBand.visibility = View.VISIBLE
+                    tV_bK_signo.visibility = View.VISIBLE
+                    tV_bK_kantenschutz.visibility = View.VISIBLE
+                    tV_bK_nAst.visibility = View.VISIBLE
+                    cB_bK_Signo.visibility = View.VISIBLE
+                    cB_bK_matte.visibility = View.VISIBLE
+                } else
+                {
+                    tV_bK_bindeBand.visibility = View.INVISIBLE
+                    tV_bK_signo.visibility = View.INVISIBLE
+                    tV_bK_kantenschutz.visibility = View.INVISIBLE
+                    tV_bK_nAst.visibility = View.INVISIBLE
+                    cB_bK_Signo.visibility = View.INVISIBLE
+                    cB_bK_matte.visibility = View.INVISIBLE
+                }
                 if (BundpaltzSingleton.bundablageList[position].bund != null && BundpaltzSingleton.bundablageList[position].bund.bundKontrolliert){
                         bT_bK_absenden.setBackgroundResource(R.drawable.correct)
+                        cB_bK_matte.isChecked=true
+                        cB_bK_Signo.isChecked=true
                 } else{
                     bT_bK_absenden.setBackgroundResource(R.drawable.plane)
+                    cB_bK_Signo.isChecked=false
+                    cB_bK_matte.isChecked=false
                 }
 
-
+                val emptyMutableList = mutableListOf<Fehler>()
                 BundpaltzSingleton.spinnerPos = position
                 if (BundpaltzSingleton.bundablageList[position].bund != null){
                     if (BundpaltzSingleton.bundablageList[position].bund.baender[0].inspektionsdatensatz == null){
@@ -108,8 +137,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(BundpaltzSingleton.bundablageList[position].bund.baender[0].inspektionsdatensatz)
                 } else {
-                    val mutableList = mutableListOf<Fehler>()
-                    rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(mutableList)
+                    rV_bK_inspektionsdaten.adapter = MyRecyclerAdapter(emptyMutableList)
                 }
             }
         }
@@ -158,22 +186,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+
         when(v?.id){
             R.id.bT_bK_neuerFehler -> {
-                if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null){
+                if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null && !BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund.bundKontrolliert){
                     var bundnummer = BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund.menr
                     Log.i("LOG", "bT_neuerFehler was clicked on a item with bund object != null")
                     val intent = Intent(this, AuslaufNeuerFehler::class.java)
                     intent.putExtra("Bundnummer", bundnummer)
                     startActivityForResult(intent, 999)
                 } else {
-                    Log.i("LOG", "bT_neuerFehler was clicked on a item with bund object == null")
+                    Log.i("LOG", "bT_neuerFehler was clicked on a item with bund object == null or bund already checked")
                 }
             }
             R.id.iV_bK_bundInfo -> {
                 if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null){
+                    var bundnummer = BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund.menr
                     Log.i("LOG", "iV_bundInfo was clicked with bund object != null")
                     val intent = Intent(this, BundInfo::class.java)
+                    intent.putExtra("Bundnummer", bundnummer)
                     startActivity(intent)
                 } else {
                     Log.i("LOG", "iV_bundInfo was clicked with bund object == null")
@@ -181,9 +212,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.bT_bK_absenden -> {
                 if (BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund != null){
-                    Log.i("LOG", "iV_bundInfo was clicked with bund object != null")
-                    BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund.bundKontrolliert = true
-                    bT_bK_absenden.setBackgroundResource(R.drawable.correct)
+                    if (cB_bK_matte.isChecked && cB_bK_Signo.isChecked){
+                        Log.i("LOG", "iV_bundInfo was clicked with bund object != null")
+                        BundpaltzSingleton.bundablageList[BundpaltzSingleton.spinnerPos].bund.bundKontrolliert = true
+                        bT_bK_absenden.setBackgroundResource(R.drawable.correct)
+                    } else {
+                        val myToast = Toast.makeText(applicationContext,"Bitte die Checkboxen kontrollieren",Toast.LENGTH_SHORT)
+                        myToast.show()
+                    }
                 } else {
                     Log.i("LOG", "iV_bundInfo was clicked with bund object == null")
                 }

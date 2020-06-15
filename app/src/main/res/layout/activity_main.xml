@@ -13,7 +13,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintBottom_toTopOf="@+id/tV_bK_nAst"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sP_bK_ablageplatz" />
@@ -23,12 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="4dp"
         android:background="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/rV_bK_inspektionsdaten"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/cB_bK_Signo" />
 
     <TextView
         android:id="@+id/tV_bK_ablageplatz"
@@ -92,7 +92,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/bT_bK_neuerFehler"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/cB_bK_Signo" />
 
     <Button
         android:id="@+id/bT_bK_neuerFehler"
@@ -121,7 +121,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -131,34 +131,34 @@
         app:layout_constraintTop_toBottomOf="@+id/bT_bK_neuerFehler" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tV_bK_bindeBand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Bindeband: Stahl"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tV_bK_nAst" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tV_bK_signo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Bundsigno:    Ja"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="@+id/textView4" />
+        app:layout_constraintStart_toEndOf="@+id/tV_bK_nAst"
+        app:layout_constraintTop_toTopOf="@+id/tV_bK_nAst" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tV_bK_kantenschutz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kantenschutz: Ja"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="@+id/tV_bK_signo"
+        app:layout_constraintTop_toTopOf="@+id/tV_bK_bindeBand" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tV_bK_nAst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -168,26 +168,27 @@
         app:layout_constraintTop_toBottomOf="@+id/tV_bK_bunddaten" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/cB_bK_Signo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto"
-        android:text="Kantenschutz"
+        android:text="Bundsigno"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tV_bK_bindeBand" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/cB_bK_matte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto"
         android:text="Gummimatte"
         android:visibility="visible"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toEndOf="@+id/cB_bK_Signo"
+        app:layout_constraintTop_toBottomOf="@+id/tV_bK_kantenschutz" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
